@@ -17,7 +17,10 @@ statePropUpdate = ({ target }) => {
         onSubmit({ ...this.state });
         this.setState({name: '',
   number: '',})
-    }
+  }
+  
+   
+  
 
     render() { return( <form onSubmit={this.handleSubmit}>
             <label>Name
