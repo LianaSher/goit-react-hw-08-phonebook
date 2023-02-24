@@ -1,17 +1,20 @@
 import PropTypes from "prop-types";
+
+import {Input, Label} from "./Filter.styled";
+
 export const Filter = ({ onChange }) => {
     
     return (<div>
         
-        <label>Find contacts by name
-            <input onChange={onChange}
+        <Label>Find contacts by name
+            <Input onChange={onChange}
                 
   type="text"
   name="filter"
   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
   
 />
-        </label>
+        </Label>
     </div>)
 }
 
