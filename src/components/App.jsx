@@ -12,7 +12,6 @@ state = {
   }
   
   addContactToState = ({ name, number }) => {
-    
     this.setState((prevState) => {
       const { contacts } = prevState;
       if(this.isContactExist(name)) { return alert(`${name} is already in Contacts`)}
@@ -51,11 +50,9 @@ state = {
     
     return (<div>
       <h2>"Phonebook"</h2>
-      
-        <Form onSubmit={this.addContactToState} />
+      <Form onSubmit={this.addContactToState} />
       <h2>"Contacts"</h2>
-      
-        <Filter onChange={this.filterHandle}/>
+      <Filter onChange={this.filterHandle}  />
       <Contacts contacts={filtredContacts} onClick={this.removeContact} />
       
     </div>)
