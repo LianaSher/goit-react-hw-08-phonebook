@@ -1,9 +1,27 @@
 
-export const AddContactForm = ({onChange, onSubmit, value}) => {
-    return (
-        <form onSubmit={onSubmit}>
+import { Component } from "react";
+
+export class Form extends Component {
+    state = {
+      name: '',
+      number: '',  
+    }
+statePropUpdate = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value, });
+  }
+
+    handleSubmit = (event) => {
+        event.preventDefault(); 
+        const { onSubmit } = this.props;
+        onSubmit({ ...this.state });
+        this.setState({name: '',
+  number: '',})
+    }
+
+    render() { return( <form onSubmit={this.handleSubmit}>
             <label>Name
-                <input value={value.name} onChange={onChange}
+                <input value={this.state.name} onChange={this.statePropUpdate}
   type="text"
   name="name"
   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -11,7 +29,7 @@ export const AddContactForm = ({onChange, onSubmit, value}) => {
   required
                 /></label>
             <label>Number
-                <input value={value.number} onChange={onChange}
+                <input value={this.state.number} onChange={this.statePropUpdate}
   type="tel"
   name="number"
   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -20,6 +38,7 @@ export const AddContactForm = ({onChange, onSubmit, value}) => {
 />
             </label>
             <button>Add contact</button>
-        </form>
-    )
+        </form>)}
 }
+
+

@@ -1,28 +1,21 @@
 import { Component } from "react";
 import { nanoid } from 'nanoid'
-import { Section } from "../components/Section/Section";
-import { AddContactForm } from "../components/AddContactForm/AddContactForm";
+
 import { Filter } from "../components/Filter/Filter";
 import { Contacts } from "../components/Contacts/Contacts";
+import { Form } from "../components/AddContactForm/AddContactForm";
 
 export class App extends Component {
 state = {
    contacts: [],
-  name: '',
-  number: '',
-  filter: "",
+   filter: "",
   }
   
-  statePropUpdate = ({ target }) => {
-    const { name, value } = target;
-    this.setState({ [name]: value, });
-  }
-  addContactToState = (event) => {
-    event.preventDefault();
+  addContactToState = ({name, number}) => {
     this.setState((prevState) => {
-      const { contacts, name, number } = prevState;
+      const { contacts } = prevState;
       const newContact = { name, id: nanoid(), number};
-      return {contacts: [newContact, ...contacts], name: "", number:"",}
+      return {contacts: [newContact, ...contacts]}
       
     })
   }
@@ -34,19 +27,24 @@ state = {
       return (name.toLowerCase().includes(filter.toLowerCase()))
     });
     
-}
+  }
+  
+  filterHandle = ({target}) => {
+    this.setState({ filter: target.value });
+  }
 
   render() {
     const filtredContacts = this.filterNames();
     
     return (<div>
-      <Section title={"Phonebook"}>
-        <AddContactForm onChange={this.statePropUpdate} onSubmit={this.addContactToState} value={this.state} />
-      </Section>
-      <Section title={"Contacts"}>
-        <Filter onChange={this.statePropUpdate}/>
+      <h2>"Phonebook"</h2>
+      
+        <Form onSubmit={this.addContactToState} />
+      <h2>"Contacts"</h2>
+      
+        <Filter onChange={this.filterHandle}/>
         <Contacts contacts={filtredContacts} />
-      </Section>
+      
     </div>)
   }
 }
