@@ -7,12 +7,7 @@ import { Form } from "./Form/Form";
 
 export class App extends Component {
 state = {
-   contacts: [
-    {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-  ],
+   contacts: [],
    filter: "",
   }
   
@@ -30,8 +25,14 @@ state = {
  isContactExist = (newName) =>{
     const { contacts } = this.state;
     return contacts.find(({name})=>{ return(name.toLowerCase() === newName.toLowerCase())})
-   }
-
+  }
+  
+  removeContact = (idForDelete) => {
+      this.setState(({ contacts }) => {
+      const newContacts = contacts.filter(({ id }) => id !== idForDelete)
+      return { contacts: newContacts }
+    })}
+  
   filterNames = () => {
     const { contacts, filter } = this.state;
     if (!filter) return contacts;
@@ -55,7 +56,7 @@ state = {
       <h2>"Contacts"</h2>
       
         <Filter onChange={this.filterHandle}/>
-        <Contacts contacts={filtredContacts} />
+      <Contacts contacts={filtredContacts} onClick={this.removeContact} />
       
     </div>)
   }
