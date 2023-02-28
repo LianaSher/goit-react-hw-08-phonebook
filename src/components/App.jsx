@@ -14,21 +14,19 @@ export class App extends Component {
     filter: '',
   };
 
-  // componentDidMount() {
-  //   const contacts = JSON.parse(localStorage.getItem('myContacts'));
+  componentDidMount() {
+    const savedContacts = JSON.parse(localStorage.getItem('myContacts'));
 
-  //   if (contacts && contacts.length) {
-  //     this.setState({ contacts });
-  //   }
-  // }
+    if (savedContacts && savedContacts.length) {
+      this.setState({ contacts: savedContacts });
+    }
+  }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { contacts } = this.state;
-
-  //   if (prevState.contacts.length !== contacts.length) {
-  //     localStorage.setItem('myContacts', JSON.stringify(contacts));
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts.length !== this.state.contacts.length) {
+      localStorage.setItem('myContacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   addContactToState = ({ name, number }) => {
     this.setState(prevState => {
