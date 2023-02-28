@@ -14,6 +14,22 @@ export class App extends Component {
     filter: '',
   };
 
+  // componentDidMount() {
+  //   const contacts = JSON.parse(localStorage.getItem('myContacts'));
+
+  //   if (contacts && contacts.length) {
+  //     this.setState({ contacts });
+  //   }
+  // }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   const { contacts } = this.state;
+
+  //   if (prevState.contacts.length !== contacts.length) {
+  //     localStorage.setItem('myContacts', JSON.stringify(contacts));
+  //   }
+  // }
+
   addContactToState = ({ name, number }) => {
     this.setState(prevState => {
       const { contacts } = prevState;
