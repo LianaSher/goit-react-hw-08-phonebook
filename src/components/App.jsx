@@ -8,22 +8,21 @@ import { Form } from './Form/Form';
 
 import { Container, Title } from './App.styled';
 
-const initialContacts = () => {
-  const savedContacts = JSON.parse(localStorage.getItem('myContacts'));
-  if (savedContacts) {
-    return savedContacts;
-  } else {
-    return [];
-  }
+const useLocalStorage = (key, defaultValue) => {
+  const [state, setState] = useState(() => {
+    return JSON.parse(localStorage.getItem(key)) ?? defaultValue;
+  });
+
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(state));
+  }, [state, key]);
+
+  return [state, setState];
 };
 
 export const App = () => {
-  const [contacts, setContacts] = useState(initialContacts);
+  const [contacts, setContacts] = useLocalStorage('myContacts', []);
   const [filterValue, setFilterValue] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('myContacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   const isContactExist = newName => {
     return contacts.find(({ name }) => {
@@ -32,10 +31,11 @@ export const App = () => {
   };
 
   const addContactToState = ({ name, number }) => {
+    if (isContactExist(name)) {
+      return alert(`${name} is already in Contacts`);
+    }
+
     setContacts(prevContacts => {
-      if (isContactExist(name)) {
-        return alert(`${name} is already in Contacts`);
-      }
       const newContact = { name, id: nanoid(), number };
       return [newContact, ...prevContacts];
     });
@@ -56,8 +56,7 @@ export const App = () => {
 
   const removeContact = idForDelete => {
     setContacts(contacts => {
-      const newContacts = contacts.filter(({ id }) => id !== idForDelete);
-      return newContacts;
+      return contacts.filter(({ id }) => id !== idForDelete);
     });
   };
 
