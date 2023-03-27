@@ -1,4 +1,5 @@
-import { combineReducers } from 'redux';
+import { createReducer } from '@reduxjs/toolkit';
+import { addContact, deleteContact, setFilter } from './actions';
 
 const contactsInitialState = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -9,32 +10,42 @@ const contactsInitialState = [
 
 const filterInitialState = { filter: '' };
 
-const contactsReducer = (state = contactsInitialState, action) => {
-  switch (action.type) {
-    case 'contacts/addContact': {
-      return [...state, action.payload];
-    }
-
-    case 'contacts/deleteContact': {
-      return state.filter(({ id }) => id !== action.payload);
-    }
-
-    default:
-      return state;
-  }
-};
-
-const filterReducer = (state = filterInitialState, action) => {
-  switch (action.type) {
-    case 'filter/setFilter': {
-      return { filter: action.payload };
-    }
-    default:
-      return state;
-  }
-};
-
-export const rootReducer = combineReducers({
-  contacts: contactsReducer,
-  filter: filterReducer,
+export const contactsReducer = createReducer(contactsInitialState, {
+  [addContact]: (state, action) => {
+    return [...state, action.payload];
+  },
+  [deleteContact]: (state, action) => {
+    return state.filter(({ id }) => id !== action.payload);
+  },
 });
+
+// export const contactsReducer = (state = contactsInitialState, action) => {
+//   switch (action.type) {
+//     case 'contacts/addContact': {
+//       return [...state, action.payload];
+//     }
+
+//     case 'contacts/deleteContact': {
+//       return state.filter(({ id }) => id !== action.payload);
+//     }
+
+//     default:
+//       return state;
+//   }
+// };
+
+export const filterReducer = createReducer(filterInitialState, {
+  [setFilter]: (_, action) => {
+    return { filter: action.payload };
+  },
+});
+
+// export const filterReducer = (state = filterInitialState, action) => {
+//   switch (action.type) {
+//     case 'filter/setFilter': {
+//       return { filter: action.payload };
+//     }
+//     default:
+//       return state;
+//   }
+// };
