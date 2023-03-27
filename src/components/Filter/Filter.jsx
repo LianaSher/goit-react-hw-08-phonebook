@@ -1,23 +1,31 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+import { useDispatch } from 'react-redux';
 
-import {Input, Label} from "./Filter.styled";
+import { setFilter } from 'redax/actions';
+import { Input, Label } from './Filter.styled';
 
-export const Filter = ({ onChange }) => {
-    
-    return (<div>
-        
-        <Label>Find contacts by name
-            <Input onChange={onChange}
-                
-  type="text"
-  name="filter"
-  pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-  
-/>
-        </Label>
-    </div>)
-}
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const onChange = e => {
+    const filterValue = e.target.value;
 
-Filter.propTypes = {
-    onChange: PropTypes.func.isRequired,
-}
+    dispatch(setFilter(filterValue));
+  };
+  return (
+    <div>
+      <Label>
+        Find contacts by name
+        <Input
+          onChange={onChange}
+          type="text"
+          name="filter"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+        />
+      </Label>
+    </div>
+  );
+};
+
+// Filter.propTypes = {
+//     onChange: PropTypes.func.isRequired,
+// }

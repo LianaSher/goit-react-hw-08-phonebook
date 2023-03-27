@@ -1,24 +1,26 @@
-import PropTypes from 'prop-types';
 import { Item } from './ContactsItem';
+import { useSelector, useDispatch } from 'react-redux';
+import { getFilteredContacts } from 'redax/selectors';
+import { deleteContact } from 'redax/actions';
 
-export const Contacts = ({ contacts, onClick }) => {
-  return (
+export const Contacts = () => {
+  const filteredContacts = useSelector(getFilteredContacts);
+
+  const dispatch = useDispatch();
+
+  const removeContact = id => {
+    dispatch(deleteContact(id));
+  };
+
+  return filteredContacts.length <= 0 ? (
+    <p>There are no contacts yet</p>
+  ) : (
     <ol>
-      {contacts.map(({ id, name, number }) => (
+      {filteredContacts.map(({ id, name, number }) => (
         <li key={id}>
-          <Item id={id} name={name} number={number} onClick={onClick} />{' '}
+          <Item id={id} name={name} number={number} onClick={removeContact} />{' '}
         </li>
       ))}{' '}
     </ol>
   );
-};
-
-Contacts.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      number: PropTypes.string,
-    })
-  ).isRequired,
 };
