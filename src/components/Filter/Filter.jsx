@@ -1,7 +1,6 @@
-// import PropTypes from "prop-types";
 import { useDispatch } from 'react-redux';
 
-import { setFilter } from 'redax/actions';
+import { setFilter } from '../../redax/filterSlice';
 import { Input, Label } from './Filter.styled';
 
 export const Filter = () => {
@@ -25,7 +24,3 @@ export const Filter = () => {
     </div>
   );
 };
-
-// Filter.propTypes = {
-//     onChange: PropTypes.func.isRequired,
-// }

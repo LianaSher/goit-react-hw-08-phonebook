@@ -1,5 +1,3 @@
-// import { useState, useEffect } from 'react';
-
 import { GlobalStyle } from 'GlobalStales';
 
 import { Filter } from '../components/Filter/Filter';
