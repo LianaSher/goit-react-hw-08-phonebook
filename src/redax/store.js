@@ -6,8 +6,9 @@ import { contactsReducer } from './contactsSlice';
 import { filterReducer } from './filterSlice';
 
 const persistConfig = {
-  key: 'state',
+  key: 'stateContacts',
   storage,
+  blacklist: ['filter'],
 };
 
 const rootReducer = combineReducers({
