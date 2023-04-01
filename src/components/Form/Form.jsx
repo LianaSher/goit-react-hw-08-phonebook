@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-
+import { fetchAddContact } from '../../redax/operations';
 import { getContacts } from '../../redax/selectors';
-import { addContact } from '../../redax/contactsSlice';
+
 import { StyledForm, Input, Label, Button } from '../Form/Form.styled';
 
 export const Form = () => {
@@ -9,7 +9,7 @@ export const Form = () => {
   const dispatch = useDispatch();
 
   const isContactExist = newName => {
-    return contacts.find(({ name }) => {
+    return contacts.items.find(({ name }) => {
       return name.toLowerCase() === newName.toLowerCase();
     });
   };
@@ -22,7 +22,9 @@ export const Form = () => {
     if (isContactExist(name)) {
       return alert(`${name} is already in Contacts`);
     }
-    dispatch(addContact(name, number));
+    const data = { name, number };
+
+    dispatch(fetchAddContact(data));
     form.reset();
   };
 
