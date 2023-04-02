@@ -1,27 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchAddContact } from '../../redax/operations';
-import { getContacts } from '../../redax/selectors';
 
 import { StyledForm, Input, Label, Button } from '../Form/Form.styled';
 
 export const Form = () => {
-  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
-
-  const isContactExist = newName => {
-    return contacts.items.find(({ name }) => {
-      return name.toLowerCase() === newName.toLowerCase();
-    });
-  };
 
   const onSubmit = e => {
     e.preventDefault();
     const form = e.target;
     const name = form.elements.name.value;
     const number = form.elements.number.value;
-    if (isContactExist(name)) {
-      return alert(`${name} is already in Contacts`);
-    }
     const data = { name, number };
 
     dispatch(fetchAddContact(data));
@@ -33,7 +22,6 @@ export const Form = () => {
       <Label>
         Name
         <Input
-          // value={name}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -44,7 +32,6 @@ export const Form = () => {
       <Label>
         Number
         <Input
-          // value={number}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

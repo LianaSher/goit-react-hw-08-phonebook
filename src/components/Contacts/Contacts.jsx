@@ -2,7 +2,6 @@ import { Item } from './ContactsItem';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFilter, getContacts } from 'redax/selectors';
-//import { deleteContact } from 'redax/contactsSlice';
 import { fetchAllContacts, fetchDeleteContact } from '../../redax/operations';
 
 export const Contacts = () => {
