@@ -1,7 +1,7 @@
 import { Item } from './ContactsItem';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectFilteredContacts } from 'redax/selectors';
+import { selectFilteredContacts } from '../../redax/selectors';
 import { fetchAllContacts, fetchDeleteContact } from '../../redax/operations';
 
 export const Contacts = () => {

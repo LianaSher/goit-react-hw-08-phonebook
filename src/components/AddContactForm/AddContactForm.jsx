@@ -1,9 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAddContact } from '../../redax/operations';
 import { selectContacts } from '../../redax/selectors';
-import { StyledForm, Input, Label, Button } from '../Form/Form.styled';
+import { InputField } from '../shared/InputField/InputField';
+import { Btn } from '../shared/Button/Button';
+import fields from 'components/shared/InputField/fields';
+import { StyledForm } from './AddContactForm.styled';
 
-export const Form = () => {
+export const AddContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
@@ -30,27 +33,9 @@ export const Form = () => {
 
   return (
     <StyledForm onSubmit={onSubmit}>
-      <Label>
-        Name
-        <Input
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
-      </Label>
-      <Label>
-        Number
-        <Input
-          type="tel"
-          name="number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-      </Label>
-      <Button>Add contact</Button>
+      <InputField {...fields.contactName} />
+      <InputField {...fields.number} />
+      <Btn type={'submit'} btnName={'Add contact'} />
     </StyledForm>
   );
 };

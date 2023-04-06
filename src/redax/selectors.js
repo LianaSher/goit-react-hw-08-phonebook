@@ -4,6 +4,10 @@ export const selectContacts = state => state.contacts.items;
 
 export const selectFilter = state => state.filter.filter;
 
+export const selectUser = state => state.auth.user;
+
+export const selectIsUserLogin = state => state.auth.isLogin;
+
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectFilter],
   (contacts, filter) => {

@@ -1,7 +1,9 @@
 import { useDispatch } from 'react-redux';
 
 import { setFilter } from '../../redax/filterSlice';
-import { Input, Label } from './Filter.styled';
+
+import fields from 'components/shared/InputField/fields';
+import { InputField } from '../shared/InputField/InputField';
 
 export const Filter = () => {
   const dispatch = useDispatch();
@@ -12,15 +14,7 @@ export const Filter = () => {
   };
   return (
     <div>
-      <Label>
-        Find contacts by name
-        <Input
-          onChange={onChange}
-          type="text"
-          name="filter"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        />
-      </Label>
+      <InputField onChange={onChange} {...fields.nameFilter} />
     </div>
   );
 };

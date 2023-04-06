@@ -4,7 +4,7 @@ import {
   fetchAllContacts,
   fetchAddContact,
   fetchDeleteContact,
-} from '../redax/operations';
+} from '../redax/operations.js';
 
 const contactsInitialState = {
   items: [],

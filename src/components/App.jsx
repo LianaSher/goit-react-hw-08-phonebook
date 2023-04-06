@@ -1,20 +1,25 @@
-import { GlobalStyle } from 'GlobalStales';
+import { Route, Routes } from 'react-router-dom';
 
-import { Filter } from '../components/Filter/Filter';
-import { Contacts } from '../components/Contacts/Contacts';
-import { Form } from './Form/Form';
+import { GlobalStyle } from '../GlobalStales';
 
-import { Container, Title } from './App.styled';
+import { NavBar } from './NavBar/NavBar';
+import { HomePage } from '../pages/homePage/HomePage';
+import { MyContacts } from '../pages/myContacts/MyContacts';
+import { Register } from '../pages/register/register';
+import { LogIn } from '../pages/logIn/LogIn';
 
 export const App = () => {
   return (
-    <Container>
-      <Title>Phonebook</Title>
-      <Form />
-      <Title>Contacts</Title>
-      <Filter />
-      <Contacts />
+    <>
+      <Routes>
+        <Route path="/" element={<NavBar />}>
+          <Route index element={<HomePage />} />
+          <Route path="/myContacts" element={<MyContacts />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/logIn" element={<LogIn />} />
+        </Route>
+      </Routes>
       <GlobalStyle />
-    </Container>
+    </>
   );
 };

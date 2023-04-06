@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import 'modern-normalize';
 
-
 export const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
@@ -10,7 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding:100px;
+  
   font-size: 20px;
   font-weight: 500;
   color: #5b5d8f;
@@ -36,4 +35,4 @@ ul {
 button {
     cursor: pointer;
 }
-`
+`;
