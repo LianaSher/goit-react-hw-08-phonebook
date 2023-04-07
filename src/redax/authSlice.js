@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchPostNewUser, fetchPostUserLogIn } from './operations';
+import {
+  fetchPostNewUser,
+  fetchPostUserLogIn,
+  fetchGetCurrent,
+  fetchLogOut,
+} from './operations';
 
 const initialState = {
   user: {},
@@ -20,7 +25,6 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchPostNewUser.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.isLoading = false;
         state.isLogin = true;
         state.user = payload.user;
@@ -35,13 +39,40 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchPostUserLogIn.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.isLoading = false;
         state.isLogin = true;
         state.user = payload.user;
         state.token = payload.token;
       })
       .addCase(fetchPostUserLogIn.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+      .addCase(fetchGetCurrent.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchGetCurrent.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isLogin = true;
+        state.user = payload.user;
+        state.token = payload.token;
+      })
+      .addCase(fetchGetCurrent.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+      .addCase(fetchLogOut.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchLogOut.fulfilled, state => {
+        state.isLoading = false;
+        state.isLogin = false;
+        state.user = {};
+        state.token = '';
+      })
+      .addCase(fetchLogOut.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
       });

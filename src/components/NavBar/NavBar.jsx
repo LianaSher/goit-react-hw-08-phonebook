@@ -17,7 +17,7 @@ export const NavBar = () => {
           <NavLink style={{ color: 'black' }} to="/">
             PhoneBook
           </NavLink>
-          <NavLink to="/myContacts">My contacts</NavLink>
+          {isLogIn && <NavLink to="/myContacts">My contacts</NavLink>}
         </div>
         {isLogIn ? <NavBarUser /> : <NavBarAuth />}
       </Nav>

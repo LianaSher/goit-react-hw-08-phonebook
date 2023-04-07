@@ -1,16 +1,27 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { Btn } from '../shared/Button/Button';
 import { selectUser } from '../../redax/selectors';
 
-import { UserMenu, UserEmail } from '../NavBarUser/NavBarUser.styled';
+import { fetchLogOut } from '../../redax/operations';
+
+import {
+  UserMenu,
+  UserEmail,
+  LogoutBtn,
+} from '../NavBarUser/NavBarUser.styled';
 
 export const NavBarUser = () => {
   const { email } = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  const onLogOut = () => {
+    dispatch(fetchLogOut());
+  };
   return (
     <UserMenu>
       <UserEmail>{email}</UserEmail>
-      <Btn type={'button'} btnName={'Logout'} />
+
+      <LogoutBtn onClick={onLogOut}>Log out</LogoutBtn>
     </UserMenu>
   );
 };

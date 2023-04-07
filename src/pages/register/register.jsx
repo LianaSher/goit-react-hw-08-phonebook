@@ -1,9 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux';
-
-import { Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { fetchPostNewUser } from '../../redax/operations';
-import { selectIsUserLogin } from '../../redax/selectors';
+
 import { InputField } from '../../components/shared/InputField/InputField';
 import fields from '../../components/shared/InputField/fields';
 import { Btn } from '../../components/shared/Button/Button';
@@ -26,10 +24,6 @@ export const Register = () => {
     form.reset();
   };
 
-  const isLogin = useSelector(selectIsUserLogin);
-  if (isLogin) {
-    return <Navigate to="/myContacts" />;
-  }
   return (
     <RegisterForm onSubmit={onSubmit}>
       <InputField {...fields.name} />

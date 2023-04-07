@@ -6,6 +6,8 @@ import {
   deleteContact,
   postNewUser,
   userLogIn,
+  getCurrent,
+  logOut,
 } from '../fetchData';
 
 export const fetchAllContacts = createAsyncThunk(
@@ -60,6 +62,38 @@ export const fetchPostUserLogIn = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
       return await userLogIn(userData);
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchGetCurrent = createAsyncThunk(
+  'auth/current',
+  async (_, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
+
+      return await getCurrent(auth.token);
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  },
+  {
+    condition: (_, { getState }) => {
+      const { auth } = getState();
+      if (!auth.token) {
+        return false;
+      }
+    },
+  }
+);
+
+export const fetchLogOut = createAsyncThunk(
+  'auth/logout',
+  async (_, thunkAPI) => {
+    try {
+      return await logOut();
     } catch (error) {
       thunkAPI.rejectWithValue(error.message);
     }
