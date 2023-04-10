@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GlobalStyle } from '../GlobalStales';
 
 import { NavBar } from './NavBar/NavBar';
@@ -11,13 +11,18 @@ import { LogIn } from '../pages/logIn/LogIn';
 import { PrivateRout } from '../components/PrivateRout/PrivateRout';
 import { PublicRout } from '../components/PublicRout/PublicRout';
 import { fetchGetCurrent } from '../redax/operations';
+import { selectIsRefreshing } from '../redax/selectors';
 
 export const App = () => {
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
   useEffect(() => {
     dispatch(fetchGetCurrent());
   }, [dispatch]);
-  return (
+
+  return isRefreshing ? (
+    <p>Refreshing user...</p>
+  ) : (
     <>
       <Routes>
         <Route path="/" element={<NavBar />}>
