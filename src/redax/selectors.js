@@ -8,6 +8,8 @@ export const selectUser = state => state.auth.user;
 
 export const selectIsUserLogin = state => state.auth.isLogin;
 
+export const selectIsRefreshing = state => state.auth.isRefreshing;
+
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectFilter],
   (contacts, filter) => {

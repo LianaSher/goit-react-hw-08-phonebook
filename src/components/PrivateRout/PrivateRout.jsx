@@ -1,13 +1,9 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectIsUserLogin } from '../../redax/selectors';
+import { selectIsUserLogin, selectIsRefreshing } from '../../redax/selectors';
 
-export const PrivateRout = () => {
+export const PrivateRout = ({ component: Component, redirectTo = '/' }) => {
   const isLogin = useSelector(selectIsUserLogin);
-
-  if (!isLogin) {
-    return <Navigate to="/" />;
-  } else {
-    return <Outlet />;
-  }
+  const isRefreshing = useSelector(selectIsRefreshing);
+  return !isLogin && !isRefreshing ? <Navigate to={redirectTo} /> : Component;
 };

@@ -11,6 +11,7 @@ const initialState = {
   user: {},
   token: '',
   isLogin: false,
+  isRefreshing: false,
   isLoading: false,
   error: null,
 };
@@ -50,15 +51,18 @@ const authSlice = createSlice({
       })
       .addCase(fetchGetCurrent.pending, state => {
         state.isLoading = true;
+        state.isRefreshing = true;
         state.error = null;
       })
       .addCase(fetchGetCurrent.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isLogin = true;
+        state.isRefreshing = false;
         state.user = payload;
       })
       .addCase(fetchGetCurrent.rejected, (state, { payload }) => {
         state.isLoading = false;
+        state.isRefreshing = false;
         state.error = payload;
       })
       .addCase(fetchLogOut.pending, state => {

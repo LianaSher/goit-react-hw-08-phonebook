@@ -22,13 +22,26 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<NavBar />}>
           <Route index element={<HomePage />} />
-          <Route element={<PrivateRout />}>
-            <Route path="/myContacts" element={<MyContacts />} />
-          </Route>
-          <Route element={<PublicRout />}>
-            <Route path="/register" element={<Register />} />
-            <Route path="/logIn" element={<LogIn />} />
-          </Route>
+
+          <Route
+            path="/myContacts"
+            element={
+              <PrivateRout redirectTo="/logIn" component={<MyContacts />} />
+            }
+          />
+
+          <Route
+            path="/register"
+            element={
+              <PublicRout redirectTo="/myContacts" component={<Register />} />
+            }
+          />
+          <Route
+            path="/logIn"
+            element={
+              <PublicRout redirectTo="/myContacts" component={<LogIn />} />
+            }
+          />
         </Route>
       </Routes>
       <GlobalStyle />
